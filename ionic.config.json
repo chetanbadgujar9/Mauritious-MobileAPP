@@ -1,0 +1,7 @@
+{
+  "name": "mauritiusGovtMobileApp",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}
