@@ -13,6 +13,7 @@ import { HomePage } from '../pages/home/home';
 import { HomeServiceProvider } from '../providers/home-service/home-service';
 import { SpinnerServiceProvider } from '../providers/spinner-service/spinner-service';
 import { ToasterServiceProvider } from '../providers/toaster-service/toaster-service';
+import { AuthHttpProvider } from '../providers/auth-http/auth-http';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { ToasterServiceProvider } from '../providers/toaster-service/toaster-ser
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     HomeServiceProvider,
     SpinnerServiceProvider,
-    ToasterServiceProvider
+    ToasterServiceProvider,
+    AuthHttpProvider
     
   ]
 })
