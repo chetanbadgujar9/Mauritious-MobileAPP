@@ -1,5 +1,25 @@
 page-home {
-    .title{
+    .newsHeading{
+        white-space: normal !important;
+    }
+    ion-avatar{
         text-align: center;
+        border-radius: 50%;
+        box-shadow: 0px 2px 27px 1px #888888;
+        min-width: 50px !important;
+        min-height: 36px !important;
+    }
+    .outerDate{
+        padding: 10px;
+    }
+    .date{
+        color: #dd1b0a;
+        //font: 20px/1 &quot;Trebuchet MS&quot;
+        display: inline-block;
+    }
+    .month{
+        color: #777;
+        //font: 16px/1 &quot;Trebuchet MS&quot;
+        display: inline-block;
     }
 }

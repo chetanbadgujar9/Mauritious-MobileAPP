@@ -1,49 +1,52 @@
 <ion-header>
   <ion-navbar>
-    <ion-title class="title">
+    <ion-title>
       Home
     </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="openServices()">
+        <ion-icon name="apps"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-   <ion-list>
-    <button ion-item *ngFor="let user of users">
-      <ion-avatar item-left>
-        <img [src]="user.avatar_url">
-      </ion-avatar>
-      <h2>{{ user.login }}</h2>
-      <ion-icon name="arrow-forward" item-right></ion-icon>
-    </button>
-  </ion-list> 
-  <!-- <div padding>
-    <ion-segment [(ngModel)]="pet">
-      <ion-segment-button value="kittens">
-        Kittens
+
+  <div padding>
+    <ion-segment [(ngModel)]="homepageSegment">
+      <ion-segment-button value="news">
+        News
       </ion-segment-button>
-      <ion-segment-button value="puppies">
-        Puppies
+      <ion-segment-button value="events" (click)="onSegmentSelected($event)">
+        Events
       </ion-segment-button>
     </ion-segment>
   </div>
 
-  <div [ngSwitch]="pet">
-    <ion-list *ngSwitchCase="'puppies'">
-      <ion-item>
+  <div [ngSwitch]="homepageSegment">
+    <ion-list *ngSwitchCase="'news'">
+      <ion-item *ngFor="let news of newsData" (click)="onNewsList($event, news)">
         <ion-thumbnail item-start>
-          <img src="img/thumbnail-puppy-1.jpg">
+          <img src="../../assets/imgs/news-icon.jpg">
         </ion-thumbnail>
-        <h2>Ruby</h2>
+        <h2 class="newsHeading">{{news.newstitle}}</h2>
+        <p>{{news.newsdescription}}</p>
       </ion-item>
     </ion-list>
-
-    <ion-list *ngSwitchCase="'kittens'">
-      <ion-item>
-        <ion-thumbnail item-start>
-          <img src="img/thumbnail-kitten-1.jpg">
-        </ion-thumbnail>
-        <h2>Luna</h2>
+    <ion-list *ngSwitchCase="'events'">
+      <ion-item *ngFor="let event of eventData" (click)="onEventList($event, event)">
+        <ion-avatar item-start>
+          <div class="outerDate">
+            <span class="date">{{event.eventdate | date:'dd'}}</span>
+            <br>
+            <span class="month">{{event.eventdate | date:'MMM'}}</span>
+          </div>
+        </ion-avatar>
+        <h2 class="newsHeading">{{event.eventtitle}}</h2>
+        <p>Timing : {{event.eventdate | date:'hh:mma'}}</p>
+        <p>{{event.eventdescription}}</p>
       </ion-item>
     </ion-list>
-  </div> -->
+  </div>
 </ion-content>

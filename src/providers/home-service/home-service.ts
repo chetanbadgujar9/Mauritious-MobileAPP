@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions, Response} from '@angular/http';
+import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import { Config } from '../config/config';
@@ -33,7 +33,30 @@ export class HomeServiceProvider {
       .catch(this.handleError)
       .finally(() => this._spinnerService.stopSpinner());
   }
-
+  getEventsData() {
+    const url = Config.GetURL('/api/Mauritius/Events/Get');
+    this._spinnerService.createSpinner('Please wait...');
+    return this.authHttp.get(url)
+      .map(this.extractData)
+      .catch(this.handleError)
+      .finally(() => this._spinnerService.stopSpinner());
+  }
+  getNewsByID(id) {
+    const url = Config.GetURL('/api/Mauritius/News/NewsByID/' + id);
+    this._spinnerService.createSpinner('Please wait...');
+    return this.authHttp.get(url)
+      .map(this.extractData)
+      .catch(this.handleError)
+      .finally(() => this._spinnerService.stopSpinner());
+  }
+  getEventByID(id) {
+    const url = Config.GetURL('/api/Mauritius/Events/EventsByID/' + id);
+    this._spinnerService.createSpinner('Please wait...');
+    return this.authHttp.get(url)
+      .map(this.extractData)
+      .catch(this.handleError)
+      .finally(() => this._spinnerService.stopSpinner());
+  }
   private extractData(res: Response) {
     if (res.status < 200 || res.status >= 300) {
       throw new Error('Bad response status: ' + res.status);

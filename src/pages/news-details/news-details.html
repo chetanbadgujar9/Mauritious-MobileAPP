@@ -1,0 +1,22 @@
+<!--
+  Generated template for the NewsDetailsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>News Details</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<div class="fixed-header my-news">
+  <img src="../../assets/imgs/news-icon.jpg" class="newsImg">
+</div>
+<ion-content padding class="ion-content-below-my-news">
+  <h1>{{news ? news.newstitle : ''}}</h1>
+  <p>Timing : {{news ? (news.newsactiveon |date : 'dd MMM yyy hh:mma') : ''}}</p>
+  <h6 class="newsBody">{{news ? news.newsdescription : ''}}</h6>
+</ion-content>

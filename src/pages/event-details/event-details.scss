@@ -1,0 +1,47 @@
+page-event-details {
+    .fixed-header{
+        margin-top:43px;
+        /* 
+         The ionic header bar is 43px in height,
+         put your content below the header bar.
+        */
+    }
+
+    .platform-webview.platform-ios.platform-cordova .fixed-header{
+      margin-top:63px;
+      /* On iOS, moving a div out of ion-content,
+      I think you need to compensation for the 20px system status bar.
+      so it's 43px+20px=63px. but I'm not so sure, it hasn't been tested.
+      Test it yourself and make modifications if needed.
+      */
+    }
+    .eventImg{
+        height: 220px;
+        width: 100%;
+    }
+    .scroll-content{
+        margin-top: 0px !important;
+        bottom: 252px !important;
+    }
+    .my-event
+    {
+      height:220px;
+      width:100%;
+      position:absolute;
+      text-align:center;
+    }
+
+    .ion-content-below-my-event{
+      margin-top:264px!important;
+    }
+
+    .platform-webview.platform-ios.platform-cordova .ion-content-below-my-event{
+      margin-top:220px;
+      /*
+      Same as .fixed-header
+      */
+    }
+    .eventBody{
+        font-weight: 400 !important;
+    }
+}

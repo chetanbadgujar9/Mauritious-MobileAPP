@@ -1,0 +1,42 @@
+page-services-list {
+    .card-background-page {
+
+        ion-card {
+          position: relative;
+          text-align: center;
+        }
+    
+        .card-title {
+            position: absolute;
+            top: 0;
+            font-size: 1.4em;
+            width: 100%;
+            font-weight: bold;
+            color: #fff;
+            opacity: 102px;
+            background-color: #0000008c;
+            padding: 10px;
+        }
+    
+        .card-subtitle {
+          font-size: 1.0em;
+          position: absolute;
+          top: 52%;
+          width: 100%;
+          color: #fff;
+        }
+
+    }
+    .scroll-content{
+        padding: 0px !important;
+    }
+    .grid{
+        padding: 0px !important;
+    }
+    .row{
+        margin: -6px;
+    }
+    ion-col{
+        padding: 0px !important;
+    }
+}

@@ -9,6 +9,12 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 
+//Modules
+import { NewsDetailsPageModule } from '../pages/news-details/news-details.module';
+import { EventDetailsPageModule } from '../pages/event-details/event-details.module';
+import { ServicesListPageModule } from '../pages/services-list/services-list.module';
+import { LoginPageModule } from '../pages/login/login.module';
+
 //Providers
 import { HomeServiceProvider } from '../providers/home-service/home-service';
 import { SpinnerServiceProvider } from '../providers/spinner-service/spinner-service';
@@ -24,6 +30,10 @@ import { AuthHttpProvider } from '../providers/auth-http/auth-http';
     BrowserModule,
     HttpModule,
     HttpClientModule,
+    NewsDetailsPageModule,
+    EventDetailsPageModule,
+    ServicesListPageModule,
+    LoginPageModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -34,12 +44,12 @@ import { AuthHttpProvider } from '../providers/auth-http/auth-http';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
     HomeServiceProvider,
     SpinnerServiceProvider,
     ToasterServiceProvider,
     AuthHttpProvider
-    
+
   ]
 })
-export class AppModule {}
+export class AppModule { }
