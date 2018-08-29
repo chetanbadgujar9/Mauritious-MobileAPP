@@ -8,54 +8,46 @@ import { SpinnerServiceProvider } from '../spinner-service/spinner-service';
 import { AuthHttpProvider } from '../auth-http/auth-http';
 
 /*
-  Generated class for the HomeServiceProvider provider.
+  Generated class for the LoginServiceProvider provider.
 
   See https://angular.io/guide/dependency-injection for more info on providers
   and Angular DI.
 */
 @Injectable()
-export class HomeServiceProvider {
-  githubApiUrl = 'https://api.github.com';
+export class LoginServiceProvider {
 
   constructor(public http: Http, public _spinnerService: SpinnerServiceProvider, public authHttp: AuthHttpProvider) {
-    console.log('Hello HomeServiceProvider Provider');
+    console.log('Hello LoginServiceProvider Provider');
   }
-  // Load all github users
-  load(): Observable<any[]> {
-    return this.http.get(`${this.githubApiUrl}/users`)
-      .map(res => <any[]>res.json());
-  }
-  getNewsData() {
-    const url = Config.GetURL('/api/Mauritius/News/Get');
+  getLoginUserDetails(credentials) {
+    const url = Config.GetMemberURL('/api/Mauritius/Members/Authenticate');
     this._spinnerService.createSpinner('Please wait...');
-    return this.authHttp.get(url)
+    return this.authHttp.post(url, credentials)
       .map(this.extractData)
       .catch(this.handleError)
       .finally(() => this._spinnerService.stopSpinner());
   }
-  getEventsData() {
-    const url = Config.GetURL('/api/Mauritius/Events/Get');
-    //this._spinnerService.createSpinner('Please wait...');
-    return this.authHttp.get(url)
-      .map(this.extractData)
+  getAuthToken(credentials: any) {
+    const authenticateUrl = Config.GetURL('/api/Auth/Token');
+    const headers = new Headers();
+    const credentialString: string = 'grant_type=password&username=' + credentials.UserName + '&password=' + credentials.Password;
+    headers.append('Content-Type', 'application/x-www-form-urlencoded');
+    const options = new RequestOptions({ headers: headers });
+    return this.http.post(authenticateUrl, credentialString, options)
+      .map((res: Response) => {
+        this.setToken(res); // this.emitAuthEvent(true);
+      })
       .catch(this.handleError)
       .finally(() => this._spinnerService.stopSpinner());
   }
-  getNewsByID(id) {
-    const url = Config.GetURL('/api/Mauritius/News/NewsByID/' + id);
-    this._spinnerService.createSpinner('Please wait...');
-    return this.authHttp.get(url)
-      .map(this.extractData)
-      .catch(this.handleError)
-      .finally(() => this._spinnerService.stopSpinner());
-  }
-  getEventByID(id) {
-    const url = Config.GetURL('/api/Mauritius/Events/EventsByID/' + id);
-    this._spinnerService.createSpinner('Please wait...');
-    return this.authHttp.get(url)
-      .map(this.extractData)
-      .catch(this.handleError)
-      .finally(() => this._spinnerService.stopSpinner());
+  /**Set Token in localstorage */
+  private setToken(res: Response) {
+    if (res.status < 200 || res.status >= 300) {
+      throw new Error('Bad response status: ' + res.status);
+    }
+    const body = res.json();
+    localStorage.setItem('access_token', body.access_token);
+    return body || {};
   }
   private extractData(res: Response) {
     if (res.status < 200 || res.status >= 300) {

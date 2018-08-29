@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { HomeServiceProvider } from '../../providers/home-service/home-service';
 import { ToasterServiceProvider } from '../../providers/toaster-service/toaster-service';
 import { NewsDetailsPage } from '../news-details/news-details';
@@ -19,13 +19,18 @@ export class HomePage {
   homepageSegment: any = 'news';
   constructor(public navCtrl: NavController,
     private _homeService: HomeServiceProvider,
-    private _toasterServiceProvider: ToasterServiceProvider
+    private _toasterServiceProvider: ToasterServiceProvider,
+    public navParams: NavParams
   ) {
-
+    this.homepageSegment = this.navParams.get("text");
   }
   ionViewDidEnter() {
     //this.getGithubUsers();
-    this.getNewsData();
+    
+      this.getNewsData();
+    
+      this.getEventsData();
+    
 
   }
   getGithubUsers() {

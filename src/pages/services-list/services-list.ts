@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { TransportServicePage } from './transport-service/transport-service';
+import { HomePage } from '../home/home';
+import { LoginPage } from '../login/login';
 
 /**
  * Generated class for the ServicesListPage page.
@@ -23,8 +25,23 @@ export class ServicesListPage {
     console.log('ionViewDidLoad ServicesListPage');
   }
   onServiceClick(service) {
-    if (service === 'transport') {
-      this.navCtrl.push(TransportServicePage);
+    switch (service) {
+      case 'transport': if (localStorage.getItem('access_token') !== null) {
+        this.navCtrl.push(TransportServicePage);
+      } else {
+        this.navCtrl.push(LoginPage, {
+          text: 'transport'
+        });
+      }
+        break;
+      case 'news': this.navCtrl.push(HomePage, {
+        text: 'news'
+      });
+        break;
+      case 'events': this.navCtrl.push(HomePage, {
+        text: 'events'
+      });
+        break;
     }
   }
 }

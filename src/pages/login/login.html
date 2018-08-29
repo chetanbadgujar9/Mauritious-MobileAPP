@@ -15,18 +15,22 @@
 
 <ion-content padding>
   <ion-list>
-
-    <ion-item>
-      <ion-label floating>Username</ion-label>
-      <ion-input type="text"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label floating>Password</ion-label>
-      <ion-input type="password"></ion-input>
-    </ion-item>
-    <ion-item>
-      <button ion-button full>Submit</button>
-    </ion-item>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmitLogin(loginForm)">
+      <ion-item>
+        <ion-label floating>Username<span class="required">*</span></ion-label>
+        <ion-input type="text" name="username" formControlName="UserName"></ion-input>
+      </ion-item>
+      <p ion-text class="required" *ngIf="loginForm.get('UserName').hasError('required') && errorFlag" padding-left>
+        Username is required
+      </p>
+      <ion-item>
+        <ion-label floating>Password<span class="required">*</span></ion-label>
+        <ion-input type="password" name="password" formControlName="Password"></ion-input>
+      </ion-item>
+      <p ion-text class="required" *ngIf="loginForm.get('Password').hasError('required') && errorFlag" padding-left>
+        Password is required
+      </p>
+      <button class="submitButton" type="submit" ion-button full>Login</button>
+    </form>
   </ion-list>
 </ion-content>

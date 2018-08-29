@@ -7,12 +7,43 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>transport-service</ion-title>
+    <ion-title>Transport Service</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6>
+        <ion-card class="iconCard">
+          <ion-icon class="iconClass" name="add-circle"></ion-icon>
+        </ion-card>
+        <div>New Request</div>
+      </ion-col>
+      <ion-col col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6>
+        <ion-card class="iconCard" (click)="onSearchRequest()">
+          <ion-icon class="iconClass" name="search"></ion-icon>
+        </ion-card>
+        <div>Search Request</div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6>
+        <ion-card class="iconCard">
+           <ion-icon class="iconClass" name="list"></ion-icon>
+        </ion-card>
+        <div>My Request</div>
+      </ion-col>
+      <ion-col col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6>
+        <ion-card class="iconCard">
+          <ion-icon class="iconClass" name="list-box"></ion-icon>
+        </ion-card>
+        <div>Other</div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
 </ion-content>
