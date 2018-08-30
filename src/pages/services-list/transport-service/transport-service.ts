@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { SearchRequestPage } from './search-request/search-request';
 import { ServicesListPage } from '../../services-list/services-list';
+import { NewRequestPage } from './new-request/new-request';
 import { ViewChild } from '@angular/core';
 import { Navbar } from 'ionic-angular';
 /**
@@ -29,5 +30,8 @@ export class TransportServicePage {
   }
   onSearchRequest() {
     this.navCtrl.push(SearchRequestPage);
+  }
+  onNewRequest() {
+    this.navCtrl.push(NewRequestPage);
   }
 }

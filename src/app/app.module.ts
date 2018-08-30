@@ -21,6 +21,7 @@ import { SpinnerServiceProvider } from '../providers/spinner-service/spinner-ser
 import { ToasterServiceProvider } from '../providers/toaster-service/toaster-service';
 import { AuthHttpProvider } from '../providers/auth-http/auth-http';
 import { LoginServiceProvider } from '../providers/login-service/login-service';
+import { TransportServiceProvider } from '../providers/transport-service/transport-service';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { LoginServiceProvider } from '../providers/login-service/login-service';
     SpinnerServiceProvider,
     ToasterServiceProvider,
     AuthHttpProvider,
-    LoginServiceProvider
+    LoginServiceProvider,
+    TransportServiceProvider
 
   ]
 })

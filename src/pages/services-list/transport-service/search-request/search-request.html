@@ -14,43 +14,95 @@
 
 
 <ion-content padding>
-  <form [formGroup]="searchForm" (ngSubmit)="onSubmitSearch(searchForm)">
-    <ion-item>
-      <ion-label>Rule</ion-label>
-    </ion-item>
-     <ion-item>
-        <ion-label>1 - 9999</ion-label>
-        <ion-radio item-left checked="true" name="rule1"  value="A"></ion-radio>
+  <ion-card>
+    <form [formGroup]="searchForm" (ngSubmit)="onSubmitSearch(searchForm)">
+      <ion-list radio-group class="radioGrp">
+        <ion-item class="enableBottomBorder">
+          <ion-label class="radioLabel">Rule</ion-label>
+        </ion-item>
+        <ion-item class="enableBottomBorder">
+          <ion-label>1 - 9999</ion-label>
+          <ion-radio item-left checked="true" (ionSelect)="radioChecked('A')"></ion-radio>
+        </ion-item>
+        <ion-item class="enableBottomBorder">
+          <ion-label>A1 – Z2500 </ion-label>
+          <ion-radio item-left (ionSelect)="radioChecked('A1')"></ion-radio>
+        </ion-item>
+        <ion-item class="enableBottomBorder">
+          <ion-label>AA1 – FM2500 </ion-label>
+          <ion-radio item-left (ionSelect)="radioChecked('AA1')"></ion-radio>
+        </ion-item>
+        <ion-item class="enableBottomBorder">
+          <ion-label>FN1 – ZZ2500 </ion-label>
+          <ion-radio item-left (ionSelect)="radioChecked('AAA1')"></ion-radio>
+        </ion-item>
+      </ion-list>
+      <ion-item *ngIf="showPrefix1 && !showPrefix2" class="enableBottomBorder">
+        <ion-label>Prefix</ion-label>
+        <ion-select name="pre1" formControlName="Prefix1">
+          <ion-option *ngFor="let pre of prefix1Data" value="{{pre.Title}}">{{pre.Title}}</ion-option>
+        </ion-select>
       </ion-item>
-      <ion-item>
-        <ion-label>A1 – Z2500 </ion-label>
-        <ion-radio item-left name="rule1" value="A1"></ion-radio>
-      </ion-item>
-      <ion-item>
-        <ion-label>AA1 – FM2500 </ion-label>
-        <ion-radio item-left name="rule1"  value="AA1"></ion-radio>
-      </ion-item>
-      <ion-item>
-        <ion-label>FN1 – ZZ2500 </ion-label>
-        <ion-radio item-left name="rule1"  value="AAA1"></ion-radio>
-      </ion-item> 
-    <ion-item>
-      <ion-label floating>From<span class="required">*</span></ion-label>
-      <ion-input type="number" name="from" formControlName="FromNumber"></ion-input>
-      <div class="required" *ngIf="searchForm.get('FromNumber').hasError('required') && errorFlag">
-        Please enter From Number
-      </div>
-    </ion-item>
-    <ion-item>
-      <ion-label floating>To<span class="required">*</span></ion-label>
-      <ion-input type="number" name="to" formControlName="ToNumber"></ion-input>
-      <div class="required" >
-        Please enter To Number
-      </div>
-    </ion-item>
-    <ion-item>
-      <button type="submit" ion-button><ion-icon name="search"></ion-icon> &nbsp;Search</button>
-      <button ion-button color="danger" clear><ion-icon name="close"></ion-icon> &nbsp;Cancel</button>
-    </ion-item>
-  </form>
+
+      <ion-row *ngIf="showPrefix1 && showPrefix2" >
+        <ion-col>
+          <ion-item class="enableBottomBorder">
+            <ion-label>Prefix</ion-label>
+            <ion-select name="pre1" formControlName="Prefix1">
+              <ion-option *ngFor="let pre of prefix1Data" value="{{pre.Title}}">{{pre.Title}}</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item class="enableBottomBorder">
+            <ion-label>Prefix</ion-label>
+            <ion-select name="pre2" formControlName="Prefix2">
+              <ion-option *ngFor="let pre of prefix2Data" value="{{pre.Title}}">{{pre.Title}}</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item class="enableBottomBorder">
+            <ion-label floating>From<span class="required">*</span></ion-label>
+            <ion-input type="number" name="from" formControlName="FromNumber"></ion-input>
+          </ion-item>
+          <p ion-text class="required" *ngIf="searchForm.get('FromNumber').hasError('required') && errorFlag" padding-left>
+            Required field
+          </p>
+        </ion-col>
+        <ion-col>
+          <ion-item class="enableBottomBorder">
+            <ion-label floating>To<span class="required">*</span></ion-label>
+            <ion-input type="number" name="to" formControlName="ToNumber"></ion-input>
+          </ion-item>
+          <p ion-text class="required" *ngIf="searchForm.get('ToNumber').hasError('required') && errorFlag" padding-left>
+            Required field
+          </p>
+        </ion-col>
+      </ion-row>
+      <ion-row class="btnRow" *ngIf="showGraterErr">
+        <p ion-text class="required">'To' Number should be greater than 'From' Number</p>
+      </ion-row>
+      <ion-row class="btnRow">
+        <button type="submit" ion-button><ion-icon name="search"></ion-icon> &nbsp;Search</button>
+        <button ion-button color="danger" clear (click)="onCancel()"><ion-icon name="close"></ion-icon> &nbsp;Cancel</button>
+      </ion-row>
+    </form>
+  </ion-card>
+  <!-- List of request -->
+  <ion-card *ngIf="searchedData.length > 0">
+    <ion-card-header>
+      Available registration marks : {{searchedData.length}}
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item *ngFor="let search of searchedData" class="enableBottomBorder">
+          <h2>{{ search }}</h2>
+          <button ion-button color="dark" round item-right>Apply</button>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

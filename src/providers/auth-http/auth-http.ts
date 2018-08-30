@@ -15,8 +15,8 @@ export class AuthHttpProvider {
     console.log('Hello AuthHttpProvider Provider');
   }
   createAuthorizationHeader(headers: Headers) {
-    if (sessionStorage.getItem('access_token') !== null) {
-      headers.append('Authorization', 'Bearer ' + sessionStorage.getItem('access_token'));
+    if (localStorage.getItem('access_token') !== null) {
+      headers.append('Authorization', 'Bearer ' + localStorage.getItem('access_token'));
     }
   }
 
