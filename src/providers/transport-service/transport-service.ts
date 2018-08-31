@@ -35,6 +35,14 @@ export class TransportServiceProvider {
       .catch(this.handleError)
       .finally(() => this._spinnerService.stopSpinner());
   }
+  submitNewRequest(value) {
+    const url = Config.GetURL('/api/Mauritius/Transport/Post');
+    this._spinnerService.createSpinner('Submitting data...');
+    return this.authHttp.post(url, value)
+      .map(this.extractData)
+      .catch(this.handleError)
+      .finally(() => this._spinnerService.stopSpinner());
+  }
   private extractData(res: Response) {
     if (res.status < 200 || res.status >= 300) {
       throw new Error('Bad response status: ' + res.status);

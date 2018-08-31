@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TransportServiceProvider } from '../../../../providers/transport-service/transport-service';
+import { NewRequestPage } from '../new-request/new-request';
 
 /**
  * Generated class for the SearchRequestPage page.
@@ -116,5 +117,10 @@ export class SearchRequestPage {
     } else {
       this.errorFlag = true;
     }
+  }
+  onApply(searchText) {
+    this.navCtrl.push(NewRequestPage, {
+      'searchString': searchText
+    })
   }
 }

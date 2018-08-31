@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TransportServiceProvider } from '../../../../providers/transport-service/transport-service';
+import { ToasterServiceProvider } from '../../../../providers/toaster-service/toaster-service';
 /**
  * Generated class for the NewRequestPage page.
  *
@@ -18,7 +19,8 @@ import { TransportServiceProvider } from '../../../../providers/transport-servic
 export class NewRequestPage {
   errorMessage: any;
   availabilityMessage: any = '';
-  mobnumPattern = "^((\\+91-?)|0)?[0-9]{10}$";
+  mobnumPattern = "^[0-9]{8}$";
+  phnnumPattern = "^[0-9]{7}$";
   addForm: FormGroup;
   errorFlag: boolean = false;
   disableFirstName: boolean = true;
@@ -30,10 +32,13 @@ export class NewRequestPage {
   disablePhn: boolean = true;
   disableMobile: boolean = true;
   showCompany: boolean = false;
+  searchString: any = '';
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public formBuilder: FormBuilder,
-    public _transportServiceProvider: TransportServiceProvider) {
+    public _transportServiceProvider: TransportServiceProvider,
+    public _toasterService: ToasterServiceProvider) {
+    this.searchString = this.navParams.get('searchString') ? this.navParams.get('searchString') : '';
     this.addForm = formBuilder.group({
       ApplicantType: ['Individual Applicant', [Validators.required]],
       OnBehalf: ['No'],
@@ -45,9 +50,8 @@ export class NewRequestPage {
       Address: ['', [Validators.required]],
       City: [''],
       CountryOfResidence: ['', [Validators.required]],
-      PhoneNumber: [''],
-      // Validators.pattern(this.mobnumPattern)
-      MobileNumber: [''],
+      PhoneNumber: ['', Validators.pattern(this.phnnumPattern)],
+      MobileNumber: ['', Validators.pattern(this.mobnumPattern)],
       RegistrationMark: ['', [Validators.required]],
       NYP: ['', [Validators.required]]
     });
@@ -72,7 +76,7 @@ export class NewRequestPage {
       CountryOfResidence: userDetails ? userDetails.CountryOfResidence : '',
       PhoneNumber: userDetails ? userDetails.PhoneNumber : '',
       MobileNumber: userDetails ? userDetails.MobileNumber : '',
-      RegistrationMark: '',
+      RegistrationMark: this.searchString,
       NYP: ''
     })
     this.disableFirstName = true;
@@ -83,7 +87,11 @@ export class NewRequestPage {
     this.disableCountry = true;
     this.disablePhn = true;
     this.disableMobile = true;
-    this.availabilityMessage = '';
+    if (this.searchString !== '') {
+       this.availabilityMessage = 'Congrats! Selected Mark is available!';
+    } else {
+      this.availabilityMessage = '';
+    }
     this.errorFlag = false;
     //this.addForm.controls['FirstName'].disable({ onlySelf: true });
   }
@@ -108,9 +116,9 @@ export class NewRequestPage {
       this.addForm.controls['CountryOfResidence'].setValue('');
       this.addForm.controls['PhoneNumber'].setValue('');
       this.addForm.controls['MobileNumber'].setValue('');
-      this.addForm.controls['RegistrationMark'].setValue('');
+      //this.addForm.controls['RegistrationMark'].setValue('');
       this.addForm.controls['NYP'].setValue('');
-      this.availabilityMessage = '';
+      //this.availabilityMessage = '';
       this.errorFlag = false;
       this.addForm.updateValueAndValidity();
     } else {
@@ -143,7 +151,21 @@ export class NewRequestPage {
   }
   onSubmitSearch({ value, valid }: { value: any, valid: boolean }) {
     if (valid) {
-      console.log(value);
+      if (this.availabilityMessage === 'Congrats! Selected Mark is available!') {
+        console.log(value);
+        this._transportServiceProvider.submitNewRequest(value)
+          .subscribe(
+          (results: any) => {
+            this._toasterService.createToast('Data submitted successfully');
+            this.navCtrl.pop();
+          },
+          error => {
+            this.errorMessage = <any>error;
+            //this._messageService.addMessage({ severity: 'error', summary: 'Error Message', detail: this.errorMessage });
+          });
+      } else {
+        this.availabilityMessage = 'Registration mark is not available. Please check availability';
+      }
     } else {
       this.errorFlag = true;
       this.availabilityMessage = '';
@@ -153,7 +175,7 @@ export class NewRequestPage {
     this.navCtrl.pop();
   }
   getClass() {
-    if (this.availabilityMessage === 'Congrats! Selected Match is available!') {
+    if (this.availabilityMessage === 'Congrats! Selected Mark is available!') {
       return 'green';
     } else {
       return 'required';

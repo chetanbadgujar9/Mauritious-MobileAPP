@@ -80,6 +80,9 @@
             <ion-label stacked>Phone Number</ion-label>
             <ion-input type="number" name="phone" formControlName="PhoneNumber" [disabled]="disablePhn"></ion-input>
           </ion-item>
+          <p ion-text class="required" *ngIf="addForm.get('PhoneNumber').hasError('pattern')" padding-left>
+            Phone number must be of 7 digits
+          </p>
         </ion-col>
         <ion-col>
           <ion-item class="enableBottomBorder">
@@ -87,7 +90,7 @@
             <ion-input type="number" name="mobile" formControlName="MobileNumber" [disabled]="disableMobile"></ion-input>
           </ion-item>
           <p ion-text class="required" *ngIf="addForm.get('MobileNumber').hasError('pattern')" padding-left>
-            Required field
+            Mobile number must be of 8 digits
           </p>
         </ion-col>
       </ion-row>
