@@ -100,7 +100,7 @@
       <ion-list>
         <ion-item *ngFor="let search of searchedData" class="enableBottomBorder">
           <h2>{{ search }}</h2>
-          <button ion-button color="dark" round item-right>Apply</button>
+          <button ion-button color="dark" round item-right (click)="onApply(search)">Apply</button>
         </ion-item>
       </ion-list>
     </ion-card-content>
