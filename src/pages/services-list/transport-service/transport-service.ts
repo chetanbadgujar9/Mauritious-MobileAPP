@@ -5,6 +5,7 @@ import { ServicesListPage } from '../../services-list/services-list';
 import { NewRequestPage } from './new-request/new-request';
 import { ViewChild } from '@angular/core';
 import { Navbar } from 'ionic-angular';
+import { ToasterServiceProvider } from '../../../providers/toaster-service/toaster-service';
 /**
  * Generated class for the TransportServicePage page.
  *
@@ -16,10 +17,11 @@ import { Navbar } from 'ionic-angular';
 @Component({
   selector: 'page-transport-service',
   templateUrl: 'transport-service.html',
+  providers: [ToasterServiceProvider]
 })
 export class TransportServicePage {
   @ViewChild(Navbar) navBar: Navbar;
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public _toasterServiceProvider: ToasterServiceProvider) {
   }
 
   ionViewDidLoad() {
@@ -33,5 +35,10 @@ export class TransportServicePage {
   }
   onNewRequest() {
     this.navCtrl.push(NewRequestPage);
+  }
+  onLogout() {
+    localStorage.clear();
+    this.navCtrl.pop();
+    this._toasterServiceProvider.createToast('You have Log Out successfully');
   }
 }
