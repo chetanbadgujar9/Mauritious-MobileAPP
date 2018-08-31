@@ -1,3 +1,39 @@
 page-new-request {
-
+    .scroll-content{
+        padding: 1px !important;
+    }
+    .fixed-content{
+        background-color: #d3d3d37d;
+    }
+    .radioLabel{
+        color: #808080cc;
+    }
+    .required{
+        color: red;
+        font-size: 12px;
+    }
+    .green{
+        color: green;
+        font-size: 12px;
+    }
+    .enableBottomBorder {
+        .item-inner { border-bottom: 1px solid #dedede !important; }
+    }
+    .btnRow{
+        margin-left: 10px;
+        margin-bottom: 5px;
+    }
+    .checkAvailability{
+        bottom: -26px;
+    }
+    .selectClass,ion-label{
+        font-size: 13px;
+    }
+    ion-label{
+        font-size: 13px !important;
+    }
+    .checkBtn{
+        font-size: 12px;
+        padding: 5px;
+    }
 }

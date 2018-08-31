@@ -27,17 +27,19 @@ export class HomeServiceProvider {
   }
   getNewsData() {
     const url = Config.GetURL('/api/Mauritius/News/Get');
+    //const url = Config.GetEventAndNewsURL('/api/Mauritius/News');
     this._spinnerService.createSpinner('Please wait...');
     return this.authHttp.get(url)
-      .map(this.extractData)
+      .map(this.extractNewsData)
       .catch(this.handleError)
       .finally(() => this._spinnerService.stopSpinner());
   }
   getEventsData() {
     const url = Config.GetURL('/api/Mauritius/Events/Get');
+    //const url = Config.GetEventAndNewsURL('/api/Mauritius/Events');
     //this._spinnerService.createSpinner('Please wait...');
     return this.authHttp.get(url)
-      .map(this.extractData)
+      .map(this.extractNewsData)
       .catch(this.handleError)
       .finally(() => this._spinnerService.stopSpinner());
   }
@@ -64,7 +66,13 @@ export class HomeServiceProvider {
     const body = res.json();
     return body || {};
   }
-
+  private extractNewsData(res: Response) {
+    if (res.status < 200 || res.status >= 300) {
+      throw new Error('Bad response status: ' + res.status);
+    }
+    const body = res.json();
+    return body || null;
+  }
   /**Error Handler */
   private handleError(error: Response) {
     console.log(error);

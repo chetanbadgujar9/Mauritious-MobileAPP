@@ -22,6 +22,8 @@ export class HomePage {
     private _toasterServiceProvider: ToasterServiceProvider,
     public navParams: NavParams
   ) {
+    this.newsData = [];
+    this.eventData = [];
     this.homepageSegment = this.navParams.get("text");
   }
   ionViewDidEnter() {
@@ -45,7 +47,9 @@ export class HomePage {
     this._homeService.getNewsData()
       .subscribe(
       (results: any) => {
-        this.newsData = results;
+        if(results){
+          this.newsData = results;
+        }
         console.log('news Data', this.newsData);
       },
       error => {
@@ -57,7 +61,9 @@ export class HomePage {
     this._homeService.getEventsData()
       .subscribe(
       (results: any) => {
-        this.eventData = results;
+        if(results){
+          this.eventData = results;
+        }
         console.log('event Data', this.eventData);
       },
       error => {

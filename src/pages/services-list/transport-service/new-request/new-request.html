@@ -7,12 +7,120 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>new-request</ion-title>
+    <ion-title>New Request</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-
+  <ion-card>
+    <form [formGroup]="addForm" (ngSubmit)="onSubmitSearch(addForm)">
+      <ion-item class="enableBottomBorder">
+        <ion-label class="selectClass">Application Type<span class="required">*</span></ion-label>
+        <ion-select name="applicationtype" formControlName="ApplicantType" (ionChange)="onApplicationTypeClick($event)">
+          <ion-option value="Individual Applicant">Individual Applicant</ion-option>
+          <ion-option value="Registered Companies, Corporate Bodies">Registered Companies, Corporate Bodies</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item class="enableBottomBorder">
+        <ion-label class="selectClass">On behalf of someone?</ion-label>
+        <ion-select name="behalf" formControlName="OnBehalf" (ionChange)="onBehalfClick($event)">
+          <ion-option value="Yes">Yes</ion-option>
+          <ion-option value="No">No</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item class="enableBottomBorder" *ngIf="showCompany">
+        <ion-label stacked>Company Name<small>&nbsp;(Max 50 Chars)</small></ion-label>
+        <ion-input type="text" maxlength="50" name="companyname" formControlName="CompanyName"></ion-input>
+      </ion-item>
+      <ion-item class="enableBottomBorder"  *ngIf="showCompany">
+        <ion-label stacked>Company Number<small>&nbsp;(Max 50 Chars)</small></ion-label>
+        <ion-input type="text" maxlength="50" name="companynumber" formControlName="RegisteredCoNumber"></ion-input>
+      </ion-item>
+      <ion-item class="enableBottomBorder">
+        <ion-label stacked>First Name<span class="required">*</span><small>&nbsp;(Max 50 Chars)</small></ion-label>
+        <ion-input type="text" maxlength="50" name="firstname" formControlName="FirstName" [disabled]="disableFirstName"></ion-input>
+      </ion-item>
+      <p ion-text class="required" *ngIf="addForm.get('FirstName').hasError('required') && errorFlag" padding-left>
+        Required field
+      </p>
+      <ion-item class="enableBottomBorder">
+        <ion-label stacked>Family Name<span class="required">*</span><small>&nbsp;(Max 50 Chars)</small></ion-label>
+        <ion-input type="text" maxlength="50" name="familyname" formControlName="FamilyName" [disabled]="disableFamilyName"></ion-input>
+      </ion-item>
+      <p ion-text class="required" *ngIf="addForm.get('FamilyName').hasError('required') && errorFlag" padding-left>
+        Required field
+      </p>
+      <ion-item class="enableBottomBorder">
+        <ion-label stacked>NIC Number/Passport Number<small>&nbsp;(Max 15 Chars)</small></ion-label>
+        <ion-input type="text" maxlength="15" name="nicpassport" formControlName="NIC" [disabled]="disableNIC"></ion-input>
+      </ion-item>
+      <ion-item class="enableBottomBorder">
+        <ion-label stacked>Address<span class="required">*</span><small>&nbsp;(Max 250 Chars)</small></ion-label>
+        <ion-textarea name="address" maxLength="250" formControlName="Address" [disabled]="disableAddress"></ion-textarea>
+      </ion-item>
+      <p ion-text class="required" *ngIf="addForm.get('Address').hasError('required') && errorFlag" padding-left>
+        Required field
+      </p>
+      <ion-item class="enableBottomBorder">
+        <ion-label stacked>City<small>&nbsp;(Max 50 Chars)</small></ion-label>
+        <ion-input type="text" maxlength="50" formControlName="City" name="nicpassport" [disabled]="disableCity"></ion-input>
+      </ion-item>
+      <ion-item class="enableBottomBorder">
+        <ion-label stacked>Country of Residence<span class="required">*</span><small>&nbsp;(Max 50 Chars)</small></ion-label>
+        <ion-input type="text" maxlength="50" formControlName="CountryOfResidence" name="nicpassport" [disabled]="disableCountry"></ion-input>
+      </ion-item>
+      <p ion-text class="required" *ngIf="addForm.get('CountryOfResidence').hasError('required') && errorFlag" padding-left>
+        Required field
+      </p>
+      <ion-row>
+        <ion-col>
+          <ion-item class="enableBottomBorder">
+            <ion-label stacked>Phone Number</ion-label>
+            <ion-input type="number" name="phone" formControlName="PhoneNumber" [disabled]="disablePhn"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item class="enableBottomBorder">
+            <ion-label stacked>Mobile Number</ion-label>
+            <ion-input type="number" name="mobile" formControlName="MobileNumber" [disabled]="disableMobile"></ion-input>
+          </ion-item>
+          <p ion-text class="required" *ngIf="addForm.get('MobileNumber').hasError('pattern')" padding-left>
+            Required field
+          </p>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8>
+          <ion-item class="enableBottomBorder">
+            <ion-label stacked>Registration Mark<span class="required">*</span></ion-label>
+            <ion-input type="text" name="registration" formControlName="RegistrationMark"></ion-input>
+          </ion-item>
+          <p ion-text class="required" *ngIf="addForm.get('RegistrationMark').hasError('required') && errorFlag" padding-left>
+            Required field
+          </p>
+          <p ion-text class={{getClass()}} padding-left>
+            {{availabilityMessage}}
+          </p>
+        </ion-col>
+        <ion-col col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4>
+          <ion-item class="checkAvailability">
+            <button type="button" ion-button small color="dark" class="checkBtn" round item-right (click)="checkAvailability()">CHECK</button>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-item class="enableBottomBorder">
+        <ion-label stacked>Insert NYP for vehicle not yet purchased <span class="required">*</span></ion-label>
+        <ion-input type="text" maxlength="50" formControlName="NYP" name="nyc"></ion-input>
+      </ion-item>
+      <p ion-text class="required" *ngIf="addForm.get('NYP').hasError('required') && errorFlag" padding-left>
+        Required field
+      </p>
+      <ion-row class="btnRow">
+        <button type="submit" ion-button small round>Save</button>
+        <button ion-button small round color="danger" clear (click)="onCancel()">Cancel</button>
+      </ion-row>
+    </form>
+  </ion-card>
 </ion-content>

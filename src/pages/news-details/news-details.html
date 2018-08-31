@@ -17,6 +17,6 @@
 </div>
 <ion-content padding class="ion-content-below-my-news">
   <h1>{{news ? news.newstitle : ''}}</h1>
-  <p>Timing : {{news ? (news.newsactiveon |date : 'dd MMM yyy hh:mma') : ''}}</p>
-  <h6 class="newsBody">{{news ? news.newsdescription : ''}}</h6>
+  <p>Timing : {{news ? (news.ActiveOn |date : 'dd MMM yyy hh:mma') : ''}}</p>
+  <h6 class="newsBody">{{news ? news.Description : ''}}</h6>
 </ion-content>
