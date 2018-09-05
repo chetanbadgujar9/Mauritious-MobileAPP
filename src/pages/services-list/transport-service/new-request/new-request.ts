@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TransportServiceProvider } from '../../../../providers/transport-service/transport-service';
@@ -20,7 +20,7 @@ export class NewRequestPage {
   errorMessage: any;
   availabilityMessage: any = '';
   mobnumPattern = "^[0-9]{8}$";
-  phnnumPattern = "^[0-9]{7}$";
+  phnnumPattern = "^[0-9]{6}$";
   addForm: FormGroup;
   errorFlag: boolean = false;
   disableFirstName: boolean = true;
@@ -33,11 +33,15 @@ export class NewRequestPage {
   disableMobile: boolean = true;
   showCompany: boolean = false;
   searchString: any = '';
+  captchaPassed: boolean = false;
+  captchaResponse: string;
+  captchaErr: string = '';
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public formBuilder: FormBuilder,
     public _transportServiceProvider: TransportServiceProvider,
-    public _toasterService: ToasterServiceProvider) {
+    public _toasterService: ToasterServiceProvider,
+    private zone: NgZone) {
     this.searchString = this.navParams.get('searchString') ? this.navParams.get('searchString') : '';
     this.addForm = formBuilder.group({
       ApplicantType: ['Individual Applicant', [Validators.required]],
@@ -60,6 +64,13 @@ export class NewRequestPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad NewRequestPage');
+  }
+  captchaResolved(response: string): void {
+    this.zone.run(() => {
+      this.captchaPassed = true;
+      this.captchaResponse = response;
+      this.captchaErr = '';
+    });
   }
   setFormDetails(val) {
     let userDetails = JSON.parse(localStorage.getItem('UserDetails'));
@@ -88,7 +99,7 @@ export class NewRequestPage {
     this.disablePhn = true;
     this.disableMobile = true;
     if (this.searchString !== '') {
-       this.availabilityMessage = 'Congrats! Selected Mark is available!';
+      this.availabilityMessage = 'Congrats! Selected Mark is available!';
     } else {
       this.availabilityMessage = '';
     }
@@ -152,17 +163,23 @@ export class NewRequestPage {
   onSubmitSearch({ value, valid }: { value: any, valid: boolean }) {
     if (valid) {
       if (this.availabilityMessage === 'Congrats! Selected Mark is available!') {
-        console.log(value);
-        this._transportServiceProvider.submitNewRequest(value)
-          .subscribe(
-          (results: any) => {
-            this._toasterService.createToast('Data submitted successfully');
-            this.navCtrl.pop();
-          },
-          error => {
-            this.errorMessage = <any>error;
-            //this._messageService.addMessage({ severity: 'error', summary: 'Error Message', detail: this.errorMessage });
-          });
+        if (this.captchaPassed) {
+          this.captchaErr = '';
+          console.log(value);
+          this._transportServiceProvider.submitNewRequest(value)
+            .subscribe(
+            (results: any) => {
+              this._toasterService.createToast('Data submitted successfully');
+              this.navCtrl.pop();
+            },
+            error => {
+              this.errorMessage = <any>error;
+              //this._messageService.addMessage({ severity: 'error', summary: 'Error Message', detail: this.errorMessage });
+            });
+        }
+        else {
+          this.captchaErr = 'Please select Captcha';
+        }
       } else {
         this.availabilityMessage = 'Registration mark is not available. Please check availability';
       }

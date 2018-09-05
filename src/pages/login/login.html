@@ -34,6 +34,12 @@
       <p ion-text class="required" *ngIf="loginForm.get('Password').hasError('required') && errorFlag" padding-left>
         Password is required
       </p>
+      <ion-item>
+        <re-captcha (resolved)="captchaResolved($event)" siteKey="6LeQc24UAAAAAHPIrwaga8ePIovc0UgBDfvXRVqe"></re-captcha>
+      </ion-item> 
+      <p ion-text class="required" padding-left>
+        {{captchaErr}}
+      </p>
       <button class="submitButton" type="submit" ion-button full>Login</button>
     </form>
   </ion-list>

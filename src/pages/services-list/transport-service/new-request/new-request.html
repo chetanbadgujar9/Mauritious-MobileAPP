@@ -34,7 +34,7 @@
         <ion-label stacked>Company Name<small>&nbsp;(Max 50 Chars)</small></ion-label>
         <ion-input type="text" maxlength="50" name="companyname" formControlName="CompanyName"></ion-input>
       </ion-item>
-      <ion-item class="enableBottomBorder"  *ngIf="showCompany">
+      <ion-item class="enableBottomBorder" *ngIf="showCompany">
         <ion-label stacked>Company Number<small>&nbsp;(Max 50 Chars)</small></ion-label>
         <ion-input type="text" maxlength="50" name="companynumber" formControlName="RegisteredCoNumber"></ion-input>
       </ion-item>
@@ -120,9 +120,15 @@
       <p ion-text class="required" *ngIf="addForm.get('NYP').hasError('required') && errorFlag" padding-left>
         Required field
       </p>
+      <ion-item>
+        <re-captcha (resolved)="captchaResolved($event)" siteKey="6LeQc24UAAAAAHPIrwaga8ePIovc0UgBDfvXRVqe"></re-captcha>
+      </ion-item>
+      <p ion-text class="required" padding-left>
+        {{captchaErr}}
+      </p>
       <ion-row class="btnRow">
         <button type="submit" ion-button small round>Save</button>
-        <button ion-button small round color="danger" clear (click)="onCancel()">Cancel</button>
+        <button type="button" ion-button small round color="danger" clear (click)="onCancel()">Cancel</button>
       </ion-row>
     </form>
   </ion-card>
