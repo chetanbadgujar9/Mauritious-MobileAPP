@@ -5,6 +5,7 @@ import { ToasterServiceProvider } from '../../providers/toaster-service/toaster-
 import { NewsDetailsPage } from '../news-details/news-details';
 import { EventDetailsPage } from '../event-details/event-details';
 import { ServicesListPage } from '../services-list/services-list';
+import { LandingPage } from '../landing/landing';
 import { LoginPage } from '../login/login';
 @Component({
   selector: 'page-home',
@@ -85,7 +86,7 @@ export class HomePage {
     });
   }
   openServices() {
-    this.navCtrl.push(ServicesListPage);
+    this.navCtrl.push(LandingPage);
     //this.navCtrl.push(LoginPage);
   }
 }

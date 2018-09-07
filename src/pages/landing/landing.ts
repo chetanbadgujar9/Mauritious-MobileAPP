@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { TransportServicePage } from './transport-service/transport-service';
 import { HomePage } from '../home/home';
 import { LoginPage } from '../login/login';
 import { HomeServiceProvider } from '../../providers/home-service/home-service';
 import { NewsDetailsPage } from '../news-details/news-details';
 import { EventDetailsPage } from '../event-details/event-details';
+import { ServicesListPage } from "../services-list/services-list";
 /**
  * Generated class for the ServicesListPage page.
  *
@@ -15,10 +15,10 @@ import { EventDetailsPage } from '../event-details/event-details';
 
 @IonicPage()
 @Component({
-  selector: 'page-services-list',
-  templateUrl: 'services-list.html',
+  selector: 'page-landing',
+  templateUrl: 'landing.html',
 })
-export class ServicesListPage {
+export class LandingPage {
   newsData: any[];
   eventData: any[];
   newsDataLimit: any[];
@@ -81,20 +81,16 @@ export class ServicesListPage {
   }
   onServiceClick(service) {
     switch (service) {
-      case 'transport': if (localStorage.getItem('access_token') !== null) {
-        this.navCtrl.push(TransportServicePage);
-      } else {
-        this.navCtrl.push(LoginPage, {
-          text: 'transport'
-        });
-      }
-        break;
       case 'news': this.navCtrl.push(HomePage, {
         text: 'news'
       });
         break;
       case 'events': this.navCtrl.push(HomePage, {
         text: 'events'
+      });
+        break;
+      case 'apps': this.navCtrl.push(ServicesListPage, {
+        text: 'apps'
       });
         break;
     }
@@ -116,3 +112,4 @@ export class ServicesListPage {
     });
   }
 }
+

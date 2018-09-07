@@ -20,11 +20,11 @@ export class EventDetailsPage {
   public errorMessage: any;
   constructor(public navCtrl: NavController, public navParams: NavParams, public _homeService: HomeServiceProvider) {
     this.id = navParams.get("eventId");
-    this.getEventByID(this.id);
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad EventDetailsPage');
+    this.getEventByID(this.id);
   }
 
   getEventByID(id) {

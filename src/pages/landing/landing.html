@@ -1,0 +1,155 @@
+<!--
+  Generated template for the ServicesListPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<!-- <ion-header>
+
+  <ion-navbar>
+    <ion-title>Services</ion-title>
+  </ion-navbar>
+
+</ion-header> -->
+
+
+<ion-content class="card-background-page" padding>
+  <div>
+    <img src="../../assets/imgs/banner-mobile.jpg" />
+    <!-- <div>Welcome to Mauritius</div> -->
+  </div>
+  <!-- <ion-grid>
+    <ion-row>
+      <ion-col col-4 *ngFor="let event of eventDataLimit">
+        <ion-card (click)="onEventList($event, event)">
+          <img src="../../assets/imgs/events-service.jpg" />
+          <div class="card-title">{{event.eventdate | date:'dd'}}<br>{{event.eventdate | date:'MMM'}}</div>
+        </ion-card>
+      </ion-col>
+      <ion-col col-4>
+        <ion-card (click)="onServiceClick('events')">
+          <img src="../../assets/imgs/events-service.jpg" />
+          <div class="card-title">+ More <br> Events</div>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid> -->
+  <ion-row>
+    <ion-item no-lines style="background-color: black;">
+      <ion-scroll scrollX="true">
+        <div class="scroll-item" *ngFor="let news of newsDataLimit" (click)="onNewsList($event, news)">
+          <img src="../../assets/imgs/news-service.jpg" />
+          <div class="icon-subtitle">{{news.newstitle}} </div>
+        </div>
+        <div class="scroll-item" (click)="onServiceClick('news')">
+          <img src="../../assets/imgs/news-service.jpg" />
+          <div class="icon-subtitle">+ More News </div>
+        </div>
+        <!-- <div class="scroll-item">
+          sdsaddsdsads
+        </div>
+        <div class="scroll-item">
+          sdsaddsdsads
+        </div>
+        <div class="scroll-item">
+          sdsaddsdsads
+        </div>
+        <div class="scroll-item">
+          sdsaddsdsads
+        </div>
+        <div class="scroll-item">
+          sdsaddsdsads
+        </div>
+        <div class="scroll-item">
+          sdsaddsdsads
+        </div>
+        <div class="scroll-item">
+          sdsaddsdsads
+        </div> -->
+      </ion-scroll>
+    </ion-item>
+  </ion-row>
+
+
+
+  <ion-grid>
+    <!-- <ion-row>
+      <ion-col col-6>
+        <ion-card>
+          <img src="../../assets/imgs/news-service.jpg" />
+          <div class="card-title">News</div>
+           <div class="card-subtitle">Upcoming News </div> 
+        </ion-card>
+      </ion-col>
+      <ion-col col-6>
+        <ion-card (click)="onServiceClick('events')">
+          <img src="../../assets/imgs/events-service.jpg" />
+          <div class="card-title">Events</div>
+           <div class="card-subtitle">Upcoming Events </div> 
+        </ion-card>
+      </ion-col>
+    </ion-row> -->
+    <ion-row style="margin-left: 3px; margin-right: 3px;">
+      <ion-col col-6>
+        <ion-card (click)="onServiceClick('events')" style="background-color: #efae03; height: 100%;">
+          <ion-icon name="calendar" style="font-size: 7.5em;color: white;text-align: center;margin-top: 20px;"></ion-icon>
+          <div class="card-subtitle" style="background-color: #00000000; font-size: 1.5em;bottom:0;">Events</div>
+        </ion-card>
+      </ion-col>
+      <ion-col col-6>
+        <ion-card (click)="onServiceClick('apps')" style="background-color: forestgreen; height: 100%;">
+          <ion-icon name="apps" style="font-size: 7.5em;color: white;text-align: center;margin-top: 20px;"></ion-icon>
+          <div class="card-subtitle" style="background-color: #00000000; font-size: 1.5em;bottom:0;">E-Services</div>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <!-- <ion-row>
+      <ion-col col-6>
+        <ion-card (click)="onServiceClick('transport')">
+          <img src="../../assets/imgs/card-service1.png" />
+          <div class="card-title">Transport</div>
+        </ion-card>
+      </ion-col>
+      <ion-col col-6>
+        <ion-card>
+          <img src="../../assets/imgs/card-service2.png" />
+          <div class="card-title">Passport</div>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-6>
+        <ion-card>
+          <img src="../../assets/imgs/card-service3.png" />
+          <div class="card-title">Birth Certificate</div>
+        </ion-card>
+      </ion-col>
+      <ion-col col-6>
+        <ion-card>
+          <img src="../../assets/imgs/card-service4.png" />
+          <div class="card-title">Driving Licence</div>
+        </ion-card>
+      </ion-col>
+    </ion-row> -->
+  </ion-grid>
+
+  <!-- <ion-slides pager>
+    <ion-slide>
+      <img src="../../assets/imgs/events-service.jpg" />
+      <h2>Slide 1</h2>
+    </ion-slide>
+    <ion-slide>
+      <img src="../../assets/imgs/card-service1.png" />
+      <h2>Slide 1</h2>
+    </ion-slide>
+    <ion-slide>
+      <img src="../../assets/imgs/card-service2.png" />
+      <h2>Slide 1</h2>
+    </ion-slide>
+  </ion-slides>  -->
+
+
+
+
+
+</ion-content>

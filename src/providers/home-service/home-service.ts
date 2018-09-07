@@ -45,7 +45,7 @@ export class HomeServiceProvider {
   }
   getNewsByID(id) {
     const url = Config.GetURL('/api/Mauritius/News/NewsByID/' + id);
-    this._spinnerService.createSpinner('Please wait...');
+    //this._spinnerService.createSpinner('Please wait...');
     return this.authHttp.get(url)
       .map(this.extractData)
       .catch(this.handleError)
@@ -53,7 +53,7 @@ export class HomeServiceProvider {
   }
   getEventByID(id) {
     const url = Config.GetURL('/api/Mauritius/Events/EventsByID/' + id);
-    this._spinnerService.createSpinner('Please wait...');
+    //this._spinnerService.createSpinner('Please wait...');
     return this.authHttp.get(url)
       .map(this.extractData)
       .catch(this.handleError)
