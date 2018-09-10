@@ -28,7 +28,8 @@
     <ion-list *ngSwitchCase="'news'">
       <ion-item *ngFor="let news of newsData" (click)="onNewsList($event, news)">
         <ion-thumbnail item-start>
-          <img src="../../assets/imgs/news-icon.jpg">
+          <img *ngIf="news.Photos" src="{{news.Photos[0].ServerRelativeUrl}}">
+          <img *ngIf="news.Photos === null" src="../../assets/imgs/news-icon.jpg">
         </ion-thumbnail>
         <h2 class="newsHeading">{{news.newstitle}}</h2>
         <p>{{news.newsdescription}}</p>

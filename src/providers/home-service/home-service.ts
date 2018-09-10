@@ -26,8 +26,8 @@ export class HomeServiceProvider {
       .map(res => <any[]>res.json());
   }
   getNewsData() {
-    const url = Config.GetURL('/api/Mauritius/News/Get');
-    //const url = Config.GetEventAndNewsURL('/api/Mauritius/News');
+    //const url = Config.GetURL('/api/Mauritius/News/Get');
+    const url = Config.GetEventAndNewsURL('/api/Mauritius/News');
     this._spinnerService.createSpinner('Please wait...');
     return this.authHttp.get(url)
       .map(this.extractNewsData)
@@ -35,8 +35,8 @@ export class HomeServiceProvider {
       .finally(() => this._spinnerService.stopSpinner());
   }
   getEventsData() {
-    const url = Config.GetURL('/api/Mauritius/Events/Get');
-    //const url = Config.GetEventAndNewsURL('/api/Mauritius/Events');
+    //const url = Config.GetURL('/api/Mauritius/Events/Get');
+    const url = Config.GetEventAndNewsURL('/api/Mauritius/Events');
     //this._spinnerService.createSpinner('Please wait...');
     return this.authHttp.get(url)
       .map(this.extractNewsData)

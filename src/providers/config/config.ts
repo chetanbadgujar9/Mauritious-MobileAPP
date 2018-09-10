@@ -11,7 +11,7 @@ export class Config {
     }
     public static GetEventAndNewsURL(apiURL: string): string {
         //  const baseURL = 'http://ak-wks-1468:8081';
-        const eventAndNewsURL = 'http://espld202:6005';
+        const eventAndNewsURL = 'https://espld202:6006';
         return eventAndNewsURL + apiURL;
     }
 }

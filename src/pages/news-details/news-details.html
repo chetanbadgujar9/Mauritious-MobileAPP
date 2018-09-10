@@ -13,7 +13,8 @@
 </ion-header>
 
 <div class="fixed-header my-news">
-  <img src="../../assets/imgs/news-icon.jpg" class="newsImg">
+  <img *ngIf="news && news.Photos" src="{{news.Photos[0].ServerRelativeUrl}}" class="newsImg">
+  <img *ngIf="news && news.Photos === null" src="../../assets/imgs/news-icon.jpg" class="newsImg">
 </div>
 <ion-content padding class="ion-content-below-my-news">
   <h1>{{news ? news.newstitle : ''}}</h1>
